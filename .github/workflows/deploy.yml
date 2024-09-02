@@ -38,7 +38,7 @@ jobs:
           path: tools/
 
       - name: Extract tools artifact
-        run: tar -C tools -xvf deploy_aws_s3.tar
+        run: ls -lR && tar -C tools -xvf deploy_aws_s3.tar
 
       - name: Setup Credentials
         uses: aws-actions/configure-aws-credentials@v4
