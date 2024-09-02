@@ -37,7 +37,8 @@ jobs:
           name: deploy_aws_s3
           path: tools/deploy_aws_s3
 
-      - uses: aws-actions/configure-aws-credentials@v4
+      - name: Setup Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE_GITHUB }}
           role-session-name: GitHub-Action-Role
@@ -47,8 +48,8 @@ jobs:
         #run: aws s3 sync --acl public-read --delete public/ s3://${{ env.S3_BUCKET }}/
         run: tools/deploy_aws_s3 --bucket ${{ env.S3_BUCKET }} public/ -v -a public-read -d
 
-  invalidate-cache:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Foo
-        uses: foo
+  # invalidate-cache:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Foo
+  #       uses: foo
