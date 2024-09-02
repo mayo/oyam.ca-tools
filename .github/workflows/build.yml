@@ -22,14 +22,23 @@ jobs:
         with:
           tool: zola
 
+      - name: Build site tools
+        run: cd tools/deploy_aws_s3 && cargo build --verbose
+
       - name: Build site
         run: make build
 
-      - name: Save artifact
+      - name: Save website artifact
         uses: actions/upload-artifact@v4
         with:
           name: website-${{ github.ref_name }}
           path: public/
+
+      - name: Save tools artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: deploy_aws_s3
+        path: tools/deploy_aws_s3/target/*/deploy_aws_s3
 
   call-deploy-workflow:
     uses: ./.github/workflows/deploy.yml
